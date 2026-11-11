@@ -39,7 +39,15 @@ async function bootstrap(): Promise<void> {
   // JSON parser for regular routes
   app.use(express.json());
 
-  app.enableCors();
+  const allowedOrigins = process.env.ALLOWED_ORIGINS
+    ?.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  app.enableCors({
+    origin: allowedOrigins?.length ? allowedOrigins : true,
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
