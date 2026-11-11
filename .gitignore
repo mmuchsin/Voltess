@@ -54,3 +54,4 @@ venv/
 # Uploads lokal / data pribadi
 uploads/
 tmp/
+.vercel
